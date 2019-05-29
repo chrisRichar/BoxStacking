@@ -84,7 +84,7 @@ public class NPStack{
 				for(int i = 0;i < temperature;i++){
 				 Random randomGenerator = new Random();
 				 int randomInt = randomGenerator.nextInt(boxList.size());
-				 boxList.get(change).rearrangeTall();
+				 boxList.get(randomInt).rearrangeTall();
 				}
 						
 				foundValid = true;
