@@ -75,6 +75,9 @@ public class NPStack{
 				//for(int i = 0; i < boxList.size(); i++){
 				//	boxList.get(i).rearrangeTall();
 				//}
+				if(temperature == 0){
+					temperature = 1;
+				}
 				
 				for(int i = 0;i++;i < temperature){
 				 int change = Math.randInt(0,boxList.size())
