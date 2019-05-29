@@ -70,11 +70,17 @@ public class NPStack{
 					//bestList = new ArrayList<Box>(boxStack);
 				}
 				
-				//re-orient boxes by maximum height
-				for(int i = 0; i < boxList.size(); i++){
-					boxList.get(i).rearrangeTall();
-				}
+				//re-orient boxes by maximum height (Systematic approach)
+				//for(int i = 0; i < boxList.size(); i++){
+				//	boxList.get(i).rearrangeTall();
+				//}
 				
+				int Temperature = boxList.size() / 10;
+				for(int i = 0;i++;i < temperature){
+				 int change = Math.randInt(0,temperature)
+				 boxList.get(change).rearrangeTall();
+				}
+						
 				foundValid = true;
 				prevStackHeight = stackTower();	//continue stacking tower with best-fitting boxes
 				
