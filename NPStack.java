@@ -1,7 +1,7 @@
+///Christian Richardson 1312908
+///Sivaram Manoharan 1299026
+
 import java.util.*;
-
-import javax.swing.Box;
-
 import java.io.*;
 
 public class NPStack{
