@@ -33,6 +33,7 @@ public class NPStack{
 			//declare list for stacking boxes
 			boxList = new ArrayList<Box>();
 			boxStack = new ArrayList<Box>();
+			ArrayList<Box> bestStack = new ArrayList<Box>();
 			
 			//read all boxes into memory
 			String line;
@@ -47,10 +48,10 @@ public class NPStack{
 				
 				if(positiveInts){					//only make a box if all its dimensions are positive
 					//set boxes so their largest surface area is at the bottom (sort dimensionsin descending order)
-					Arrays.sort(iArray);
+					Arrays.sort(iArray);//ascending order
 					int temp = iArray[2];
 					iArray[2] = iArray[0];
-					iArray[0] = temp;
+					iArray[0] = temp;	//descendong order
 					boxList.add(new Box(iArray[0], iArray[1], iArray[2]));
 					
 					//System.out.println(iArray[0] + "," + iArray[1]  + "," + iArray[2]);
@@ -62,7 +63,7 @@ public class NPStack{
 			//find largest area box
 			int bestSolutionHeight = 0;
 			int prevStackHeight = 0;
-			int temperature = boxList.size() / 10;
+			int temperature = 10;
 			int cooling = 1;
 			//for the number of attempts(given by args) generate a solution
 			while(solutionsNum > 0){
@@ -70,13 +71,17 @@ public class NPStack{
 				
 				if(prevStackHeight > bestSolutionHeight){	//store the height of the most successful solution
 					bestSolutionHeight = prevStackHeight;
-					//bestList = new ArrayList<Box>(boxStack);
+					bestStack = new ArrayList<Box>(boxStack);
 				}
+				isUsed = new boolean[boxList.size()];
+				prevBox = new Box(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
+				boxStack = new ArrayList<Box>();	//reset box stack (to make a new solution)
 				
 				//re-orient boxes by maximum height (Systematic approach)
-				//for(int i = 0; i < boxList.size(); i++){
-				//	boxList.get(i).rearrangeTall();
-				//}
+				/*for(int i = boxList.size() - 1;i > (boxList.size() - solutionsNum) && i >= 0; i--){
+					boxList.get(i).rearrangeTall();
+				}*/
+				
 				if(temperature == 0){
 					temperature = 1;
 				}
@@ -88,14 +93,13 @@ public class NPStack{
 				}
 						
 				foundValid = true;
-				prevStackHeight = stackTower();	//continue stacking tower with best-fitting boxes
 				temperature = temperature - cooling;
 				solutionsNum--;
 			}
 			
 			
 			//print bottom-up stack of boxes and the total height
-			printBest(boxStack);
+			printBest(bestStack);
 			System.out.println("height: " + bestSolutionHeight);
 			
 		}catch(Exception e){
