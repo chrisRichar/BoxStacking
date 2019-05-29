@@ -60,7 +60,8 @@ public class NPStack{
 			//find largest area box
 			int bestSolutionHeight = 0;
 			int prevStackHeight = 0;
-			
+			int temperature = boxList.size() / 10
+			int cooling = 1;
 			//for the number of attempts(given by args) generate a solution
 			while(solutionsNum > 0){
 				prevStackHeight = stackTower();	//stack tower with the best-fitting boxes
@@ -75,15 +76,14 @@ public class NPStack{
 				//	boxList.get(i).rearrangeTall();
 				//}
 				
-				int Temperature = boxList.size() / 10;
 				for(int i = 0;i++;i < temperature){
-				 int change = Math.randInt(0,temperature)
+				 int change = Math.randInt(0,boxList.size())
 				 boxList.get(change).rearrangeTall();
 				}
 						
 				foundValid = true;
 				prevStackHeight = stackTower();	//continue stacking tower with best-fitting boxes
-				
+				temperature = temperature - cooling;
 				solutionsNum--;
 			}
 			
