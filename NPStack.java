@@ -3,6 +3,8 @@
 
 import java.util.*;
 import java.io.*;
+import java.util.Random;
+ 
 
 public class NPStack{
 	static boolean[] isUsed;
@@ -60,7 +62,7 @@ public class NPStack{
 			//find largest area box
 			int bestSolutionHeight = 0;
 			int prevStackHeight = 0;
-			int temperature = boxList.size() / 10
+			int temperature = boxList.size() / 10;
 			int cooling = 1;
 			//for the number of attempts(given by args) generate a solution
 			while(solutionsNum > 0){
@@ -79,8 +81,9 @@ public class NPStack{
 					temperature = 1;
 				}
 				
-				for(int i = 0;i++;i < temperature){
-				 int change = Math.randInt(0,boxList.size())
+				for(int i = 0;i < temperature;i++){
+				 Random randomGenerator = new Random();
+				 int randomInt = randomGenerator.nextInt(boxList.size());
 				 boxList.get(change).rearrangeTall();
 				}
 						
