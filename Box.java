@@ -23,4 +23,10 @@ public class Box{
 		depth = dimensions[1];
 		height = dimensions[2]; // sort by descending
 	}
+	
+		public void flipBox(){
+		int oldWidth = width;
+		width = height;
+		height = oldWidth;
+	}
 }
