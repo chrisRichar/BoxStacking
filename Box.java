@@ -23,20 +23,4 @@ public class Box{
 		depth = dimensions[1];
 		height = dimensions[2]; // sort by descending
 	}
-	
-	//returns true if this box's dimensions can fit on the given parameters dimensions
-	public boolean canFit(int w, int d){
-		return (width < w) && (depth < d);
-	}
-	
-	//returns the differences between this instance's width/depth/height and the given parameter
-	public int heightDiff(int h){
-		return height - h;
-	}
-	public int widthDiff(int w){
-		return width - w;
-	}
-	public int depthDiff(int d){
-		return depth - d;
-	}
 }

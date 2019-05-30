@@ -42,7 +42,7 @@ public class NPStack{
 				int[] iArray = {Integer.parseInt(lArray[0]), Integer.parseInt(lArray[1]), Integer.parseInt(lArray[2])};
 				boolean positiveInts = true;
 				for(int i = 0; i < iArray.length; i++){	//check for negative integer values
-					if(iArray[i] < 0)
+					if(iArray[i] <= 0)
 						positiveInts = false;
 				}
 				
@@ -63,8 +63,8 @@ public class NPStack{
 			//find largest area box
 			int bestSolutionHeight = 0;
 			int prevStackHeight = 0;
-			int temperature = 10;
-			int cooling = 1;
+			double temperature = boxList.size() / 2;
+			double cooling = 0.5;
 			//for the number of attempts(given by args) generate a solution
 			while(solutionsNum > 0){
 				prevStackHeight = stackTower();	//stack tower with the best-fitting boxes
@@ -78,29 +78,32 @@ public class NPStack{
 				boxStack = new ArrayList<Box>();	//reset box stack (to make a new solution)
 				
 				//re-orient boxes by maximum height (Systematic approach)
-				/*for(int i = boxList.size() - 1;i > (boxList.size() - solutionsNum) && i >= 0; i--){
-					boxList.get(i).rearrangeTall();
-				}*/
+				//for(int i = boxList.size() - 1;i > (boxList.size() - solutionsNum) && i >= 0; i--){
+				//	boxList.get(i).rearrangeTall();
+				//}
 				
 				if(temperature == 0){
 					temperature = 1;
 				}
 				
-				for(int i = 0;i < temperature;i++){
+				for(int i = 0;i < (int)temperature;i++){
 				 Random randomGenerator = new Random();
 				 int randomInt = randomGenerator.nextInt(boxList.size());
 				 boxList.get(randomInt).rearrangeTall();
 				}
 						
 				foundValid = true;
-				temperature = temperature - cooling;
+				temperature = temperature * cooling;
 				solutionsNum--;
 			}
+		
+	
 			
 			
 			//print bottom-up stack of boxes and the total height
 			printBest(bestStack);
 			System.out.println("height: " + bestSolutionHeight);
+		
 			
 		}catch(Exception e){
 			System.out.println(e);
@@ -147,16 +150,28 @@ public class NPStack{
 				current = boxList.get(i);
 				
 				//Find largest unused box that can still fit within the confines of the previous box
-				if(!isUsed[i] && 
-				(current.width < prevBox.width && current.depth < prevBox.depth) && 
-				(current.width >= maxWidth && current.depth >= maxDepth)){
+				if(!isUsed[i] && 														//single use condition
+				(current.width < prevBox.width && current.depth < prevBox.depth) && 	//touching face condition
+				(current.width >= maxWidth && current.depth >= maxDepth)){				//find largest base
 					
+					if(current.width == maxWidth && current.depth == maxDepth){
+						if(current.height > maxHeight){
+							maxWidth = current.width;
+							maxDepth = current.depth;
+							maxHeight = current.height;
+							maxIndex = i;
+						}
+						
+					}
+					else{
+						maxWidth = current.width;
+						maxDepth = current.depth;
+						maxHeight = current.height;
+						maxIndex = i;
+					}
 					foundValid = true;
 				
-					maxWidth = current.width;
-					maxDepth = current.depth;
-					maxHeight = current.height;
-					maxIndex = i;
+					
 				}
 			
 			}
