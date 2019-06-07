@@ -49,9 +49,6 @@ public class NPStack{
 				if(positiveInts){					//only make a box if all its dimensions are positive
 					//set boxes so their largest surface area is at the bottom (sort dimensionsin descending order)
 					Arrays.sort(iArray);//ascending order
-					int temp = iArray[2];
-					iArray[2] = iArray[0];
-					iArray[0] = temp;	//descendong order
 					boxList.add(new Box(iArray[0], iArray[1], iArray[2]));
 					
 					//System.out.println(iArray[0] + "," + iArray[1]  + "," + iArray[2]);
