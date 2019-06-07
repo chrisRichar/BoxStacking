@@ -69,33 +69,24 @@ public class NPStack{
 			
 			//for the number of attempts(given by args) generate a solution
 			while(solutionsNum > 1){
-				prevStackHeight = stackTower();	//stack tower with the best-fitting boxes
+				temperature = temperature * cooling;
+				Random randomGenerator = new Random();
+				int randomInt = randomGenerator.nextInt(boxList.size());
+				int probability = randomGenerator.nextInt(100);
+				boxList.get(randomInt).flipBox();
+				currStackHeight = stackTower();	//stack tower with the best-fitting boxes
 				
-				if(prevStackHeight > bestSolutionHeight){	//store the height of the most successful solution
-					bestSolutionHeight = prevStackHeight;
+				if(currStackHeight > bestSolutionHeight){	//store the height of the most successful solution
+					bestSolutionHeight = currStackHeight;
 					bestStack = new ArrayList<Box>(boxStack);
+				}
+				else if(probability > (temperature * 100)) {
+					 boxList.get(randomInt).flipBox(); // Flips the box back to its initial position so the current stack is the same as the previous
 				}
 				isUsed = new boolean[boxList.size()];
 				prevBox = new Box(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
 				boxStack = new ArrayList<Box>();	//reset box stack (to make a new solution)
-				
-				//re-orient boxes by maximum height (Systematic approach)
-				//for(int i = boxList.size() - 1;i > (boxList.size() - solutionsNum) && i >= 0; i--){
-				//	boxList.get(i).rearrangeTall();
-				//}
-				
-				if(temperature == 0){
-					temperature = 1;
-				}
-				
-				for(int i = 0;i < (int)temperature;i++){
-				 Random randomGenerator = new Random();
-				 int randomInt = randomGenerator.nextInt(boxList.size());
-				 boxList.get(randomInt).flipBox();
-				}
-						
 				foundValid = true;
-				temperature = temperature * cooling;
 				solutionsNum--;
 			}
 		
