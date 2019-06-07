@@ -62,8 +62,13 @@ public class NPStack{
 			int prevStackHeight = 0;
 			double temperature = boxList.size() / 2;
 			double cooling = 0.5;
+			
+			// Generate the initial solution
+			bestSolutionHeight = stackTower();
+			bestStack = new ArrayList<Box>(boxStack);
+			
 			//for the number of attempts(given by args) generate a solution
-			while(solutionsNum > 0){
+			while(solutionsNum > 1){
 				prevStackHeight = stackTower();	//stack tower with the best-fitting boxes
 				
 				if(prevStackHeight > bestSolutionHeight){	//store the height of the most successful solution
