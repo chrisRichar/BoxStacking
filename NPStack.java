@@ -80,7 +80,7 @@ public class NPStack{
 					bestSolutionHeight = currStackHeight;
 					bestStack = new ArrayList<Box>(boxStack);
 				}
-				else if(probability > (temperature * 100)) {
+				else if(probability < (temperature * 100)) {
 					 boxList.get(randomInt).flipBox(); // Flips the box back to its initial position so the current stack is the same as the previous
 				}
 				isUsed = new boolean[boxList.size()];
