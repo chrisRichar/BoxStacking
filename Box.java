@@ -24,7 +24,7 @@ public class Box{
 		height = dimensions[2]; // sort by descending
 	}
 	
-		public void flipBox(){
+		public void flipBox(){ // Rotate the box
 		int oldDepth = depth;
 		depth = width;
 		width = height;
@@ -32,7 +32,7 @@ public class Box{
 		
 	}
 	
-	public void reflipBox(){
+	public void reflipBox(){ // Reverse the rotation
 		int oldDepth = depth;
 		depth = height;
 		height = width;
