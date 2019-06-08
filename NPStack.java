@@ -21,7 +21,7 @@ public class NPStack{
 	public static void main(String[] args){
 		try{
 			if(args.length != 2){
-				System.out.println("Usage: string<filename>, integer<num of candidate solutions>");
+				System.out.println("Usage: string<filename>, integer<num of candidate solutions>"); 
 				return;
 			}
 			
@@ -47,17 +47,15 @@ public class NPStack{
 				}
 				
 				if(positiveInts){					//only make a box if all its dimensions are positive
-					//set boxes so their largest surface area is at the bottom (sort dimensionsin descending order)
+					//set boxes so their largest surface area is at the bottom (sort dimensions in descending order)
 					Arrays.sort(iArray);//ascending order
 					boxList.add(new Box(iArray[0], iArray[1], iArray[2]));
-					
-					//System.out.println(iArray[0] + "," + iArray[1]  + "," + iArray[2]);
 				}
 			}
 			br.close();
 			isUsed = new boolean[boxList.size()];
 			
-			//find largest area box
+			//Set temperature and cooling
 			int bestSolutionHeight = 0;
 			int currStackHeight = 0;
 			double temperature = 100;
@@ -69,22 +67,19 @@ public class NPStack{
 			
 			//for the number of attempts(given by args) generate a solution
 			while(solutionsNum > 1){
-				temperature = temperature * cooling;
-				if(temperature <= 0) {
-					temperature = 0;
-				}
+				temperature = temperature * cooling; // Calculates new temperature
 				Random randomGenerator = new Random();
-				int randomInt = randomGenerator.nextInt(boxList.size());
-				int probability = randomGenerator.nextInt(100);
-				boxList.get(randomInt).reflipBox();;
+				int randomInt = randomGenerator.nextInt(boxList.size()); // Gets the index of the box we are flipping
+				int probability = randomGenerator.nextInt(100); // Generates a probability value to be used to determine whether we keep an inferior solution
+				boxList.get(randomInt).flipBox();
 				currStackHeight = stackTower();	//stack tower with the best-fitting boxes
 				
-				if(currStackHeight > bestSolutionHeight){	//store the height of the most successful solution
+				if(currStackHeight > bestSolutionHeight){	//If the new solution is better than our best solution then it becomes the new best solution
 					bestSolutionHeight = currStackHeight;
 					bestStack = new ArrayList<Box>(boxStack);
 				}
-				else if(probability > (temperature / 100)) {
-					 boxList.get(randomInt).flipBox(); // Flips the box back to its initial position so the current stack is the same as the previous
+				else if(probability > temperature) { // If the temperature is low then the chance of keeping the solution is low 
+					 boxList.get(randomInt).reflipBox(); // Flips the box back to its initial position so the current stack is the same as the previous
 				}
 				isUsed = new boolean[boxList.size()];
 				prevBox = new Box(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
@@ -104,16 +99,6 @@ public class NPStack{
 		}catch(Exception e){
 			System.out.println(e);
 		}
-		
-//		int Temperature = boxList.size();
-//		int[] boxChanges = new int[temperature]
-//		for(int i = 0;i < temperature, i++) {
-//			int change = math.random(0,temperature)
-//			boxChanges[i] = change;
-//		}
-//		// change boxes at those positions
-//		// check if solution improved
-//		// decrease number of solutions and 
 	}
 	
 	
