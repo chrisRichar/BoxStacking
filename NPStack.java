@@ -60,8 +60,8 @@ public class NPStack{
 			//find largest area box
 			int bestSolutionHeight = 0;
 			int prevStackHeight = 0;
-			double temperature = boxList.size() / 2;
-			double cooling = 0.5;
+			double temperature = 10000;
+			double cooling = 0.0000009;
 			
 			// Generate the initial solution
 			bestSolutionHeight = stackTower();
