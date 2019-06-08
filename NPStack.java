@@ -59,9 +59,9 @@ public class NPStack{
 			
 			//find largest area box
 			int bestSolutionHeight = 0;
-			int prevStackHeight = 0;
-			double temperature = 10000;
-			double cooling = 0.0000009;
+			int currStackHeight = 0;
+			double temperature = 100;
+			double cooling = 0.9;
 			
 			// Generate the initial solution
 			bestSolutionHeight = stackTower();
@@ -70,6 +70,9 @@ public class NPStack{
 			//for the number of attempts(given by args) generate a solution
 			while(solutionsNum > 1){
 				temperature = temperature * cooling;
+				if(temperature <= 0) {
+					temperature = 0;
+				}
 				Random randomGenerator = new Random();
 				int randomInt = randomGenerator.nextInt(boxList.size());
 				int probability = randomGenerator.nextInt(100);
@@ -80,7 +83,7 @@ public class NPStack{
 					bestSolutionHeight = currStackHeight;
 					bestStack = new ArrayList<Box>(boxStack);
 				}
-				else if(probability < (temperature * 100)) {
+				else if(probability > (temperature / 100)) {
 					 boxList.get(randomInt).flipBox(); // Flips the box back to its initial position so the current stack is the same as the previous
 				}
 				isUsed = new boolean[boxList.size()];
