@@ -76,7 +76,7 @@ public class NPStack{
 				Random randomGenerator = new Random();
 				int randomInt = randomGenerator.nextInt(boxList.size());
 				int probability = randomGenerator.nextInt(100);
-				boxList.get(randomInt).flipBox();
+				boxList.get(randomInt).reflipBox();;
 				currStackHeight = stackTower();	//stack tower with the best-fitting boxes
 				
 				if(currStackHeight > bestSolutionHeight){	//store the height of the most successful solution

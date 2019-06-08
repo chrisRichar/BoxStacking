@@ -25,8 +25,17 @@ public class Box{
 	}
 	
 		public void flipBox(){
-		int oldWidth = width;
+		int oldDepth = depth;
+		depth = width;
 		width = height;
-		height = oldWidth;
+		height = oldDepth;
+		
+	}
+	
+	public void reflipBox(){
+		int oldDepth = depth;
+		depth = height;
+		height = width;
+		width = oldDepth;
 	}
 }
